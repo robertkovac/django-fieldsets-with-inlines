@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include fieldsets_with_inlines/templates *
+recursive-include docs *

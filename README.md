@@ -4,7 +4,7 @@
 ## What is it?
 
 Django administration has nice feature to render related models as inlines
-**after** the fieldsets out of the box. Unfortunately there is no easy
+**under** the fieldsets out of the box. Unfortunately there is no easy
 way to render inlines between fieldsets.
 
 But when the size of the model becomes bigger, ordering of fieldsets and
@@ -20,7 +20,7 @@ you want with minimal changes required to your existing code.
 
 ## Quick start
 
-1. Add "fieldsets_with_inlines" to your INSTALLED_APPS setting like this::
+1. Add "fieldsets_with_inlines" to your INSTALLED_APPS setting like this:
 
 ```python
 INSTALLED_APPS = [
@@ -29,13 +29,13 @@ INSTALLED_APPS = [
 ]
 ```
 
-1. Include FieldsetsInlineMixin in your admin.py
+1. Include `FieldsetsInlineMixin` in your admin.py:
 
 ```python
 from fieldsets_with_inlines import FieldsetsInlineMixin,
 ```
 
-1. Add changes to your existing ModelAdmin classes in your admin.py::
+1. Add changes to your existing ModelAdmin classes in your admin.py:
 
 ```
 class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin)
@@ -43,7 +43,7 @@ class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin)
 
 * rename your `fieldsets` property to `fieldsets_with_inlines`
 
-* insert inline where you want them
+* insert inlines beetween fieldsets where you want them to be rendered
 
 **With fieldsets-with-inlines inlines are not automaticaly rendered after your
 fieldsets! Every inline that you want rendered should be added to your
@@ -52,7 +52,7 @@ fieldsets_with_inlines property.**
 
 ## Before and After
 
-* Code before changes
+### Code before changes
 
 ```python
 class TestAdmin(admin.ModelAdmin):
@@ -87,7 +87,7 @@ class TestAdmin(admin.ModelAdmin):
     inlines = [KontaktInline, LastnistvoInline, OdjavaInline]
 ```
 
-* Code after changes
+### Code after changes
 
 ```python
 class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin):

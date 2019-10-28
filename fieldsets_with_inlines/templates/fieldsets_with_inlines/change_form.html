@@ -1,0 +1,28 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+
+{% block field_sets %}
+{% for fieldset in adminform %}
+    {% with fieldset_index=forloop.counter0 %}
+        {% for inline_admin_formset in inline_admin_formsets %}
+            {% if inline_admin_formset.opts.fieldset_index == fieldset_index %}
+                {% include inline_admin_formset.opts.template %}
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+    {% include "fieldsets_with_inlines/fieldset.html" %}
+{% endfor %}
+{% endblock %}
+
+
+{% block inline_field_sets %}
+{% comment %}
+Inlines are already included.
+No need to repeat them under fieldsets!
+{% for inline_admin_formset in inline_admin_formsets %}
+    {% include inline_admin_formset.opts.template %}
+{% endfor %}
+{% endcomment %}
+{% endblock %}
