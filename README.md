@@ -14,20 +14,28 @@ This package makes it easy to mix fieldsets and inlines in any order
 you want with minimal changes required to your existing code.
 
 
+## Requirements
+
+- Python: 3.4+
+- Django: >=2.0
+
 ## Installation
 
-    pip install django-fieldsets-with-inlines
+```
+pip install django-fieldsets-with-inlines
+```
 
-## Quick start
-
-1. Add "fieldsets_with_inlines" to your INSTALLED_APPS setting like this:
+Add "fieldsets_with_inlines" to your INSTALLED_APPS Django settings.py:
 
 ```python
 INSTALLED_APPS = [
     ...
     'fieldsets_with_inlines',
+    ...
 ]
 ```
+
+## Usage
 
 1. Include `FieldsetsInlineMixin` in your admin.py:
 
