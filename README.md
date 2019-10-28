@@ -1,6 +1,18 @@
 # Fieldsets with inlines
 ### Mixin inlines and fieldsets in Django admin.
 
+## What is it?
+
+Django administration has nice feature to render related models as inlines
+**after** the fieldsets out of the box. Unfortunately there is no easy
+way to render inlines between fieldsets.
+
+But when the size of the model becomes bigger, ordering of fieldsets and
+related inlines becomes critical for the usability.
+
+This package makes it easy to mix fieldsets and inlines in any order
+you want with minimal changes required to your existing code.
+
 
 ## Installation
 
@@ -45,59 +57,69 @@ fieldsets_with_inlines property.**
 ```python
 class TestAdmin(admin.ModelAdmin):
     fieldsets_with_inlines = [
-        ('Objekt', {'fields': [
-            ('ID_RNO', 'id', 'kljuc', 'slug'),
-            'naziv',
-            'kategorija']}),
-        ('Naslov', {'fields': [
-            ('obcina', 'obmocje'),
-            ('naseljeulica', 'hisna_stevilka', 'hisna_stevilka_pripona'),
-            ('ulica', 'kraj', 'posta')]}),
+        ('Objekt', {
+            'fields': [
+                ('ID_RNO', 'id', 'kljuc', 'slug'),
+                'naziv',
+                'kategorija']}),
+        ('Naslov', {
+            'fields': [
+                ('obcina', 'obmocje'),
+                ('naseljeulica', 'hisna_stevilka', 'hisna_stevilka_pripona'),
+                ('ulica', 'kraj', 'posta')]}),
         ('Ponudnik', {
             'fields': [
                 'ponudnik',
                 ('ID_cadis', 'remote_id'),
                 'polovicna_taksa']}),
-        ('Kontaktni podatki', {'fields': [
-            ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
-        ('Nastanitvena kapaciteta', {'fields': [
-         ('stevilo_stalnih_lezisc',), ]}),
-        ('Dostop', {'fields': [
-            'users',
-            ('cas_vpisa', 'zadnja_sprememba', 'cas_zadnje_posodobitve')]}),
-        ('Opombe', {'fields': ['opombe']}),
+        ('Kontaktni podatki', {
+            'fields': [
+                ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
+        ('Nastanitvena kapaciteta', {
+            'fields': ['stevilo_stalnih_lezisc',]}),
+        ('Dostop', {
+            'fields': [
+                'users',
+                ('cas_vpisa', 'zadnja_sprememba', 'cas_zadnje_posodobitve')]}),
+        ('Opombe', {
+            'fields': ['opombe']}),
     ]
     inlines = [KontaktInline, LastnistvoInline, OdjavaInline]
 ```
 
 * Code after changes
 
-```
+```python
 class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     fieldsets_with_inlines = [
-        ('Objekt', {'fields': [
-            ('ID_RNO', 'id', 'kljuc', 'slug'),
-            'naziv',
-            'kategorija']}),
-        ('Naslov', {'fields': [
-            ('obcina', 'obmocje'),
-            ('naseljeulica', 'hisna_stevilka', 'hisna_stevilka_pripona'),
-            ('ulica', 'kraj', 'posta')]}),
+        ('Objekt', {
+            'fields': [
+                ('ID_RNO', 'id', 'kljuc', 'slug'),
+                'naziv',
+                'kategorija']}),
+        ('Naslov', {
+            'fields': [
+                ('obcina', 'obmocje'),
+                ('naseljeulica', 'hisna_stevilka', 'hisna_stevilka_pripona'),
+                ('ulica', 'kraj', 'posta')]}),
         ('Ponudnik', {
             'fields': [
                 'ponudnik',
                 ('ID_cadis', 'remote_id'),
                 'polovicna_taksa']}),
         LastnistvoInline,
-        ('Kontaktni podatki', {'fields': [
-            ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
+        ('Kontaktni podatki', {
+            'fields': [
+                ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
         KontaktInline,
-        ('Nastanitvena kapaciteta', {'fields': [
-         ('stevilo_stalnih_lezisc',), ]}),
-        ('Dostop', {'fields': [
-            'users',
-            ('cas_vpisa', 'zadnja_sprememba', 'cas_zadnje_posodobitve')]}),
-        ('Opombe', {'fields': ['opombe']}),
+        ('Nastanitvena kapaciteta', {
+            'fields': ['stevilo_stalnih_lezisc',]}),
+        ('Dostop', {
+            'fields': [
+                'users',
+                ('cas_vpisa', 'zadnja_sprememba', 'cas_zadnje_posodobitve')]}),
+        ('Opombe', {
+            'fields': ['opombe']}),
         OdjavaInline
     ]
     inlines = [KontaktInline, LastnistvoInline, OdjavaInline]
