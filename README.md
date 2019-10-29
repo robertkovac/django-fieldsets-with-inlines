@@ -25,7 +25,7 @@ you want with minimal changes required to your existing code.
 pip install django-fieldsets-with-inlines
 ```
 
-Add "fieldsets_with_inlines" to your INSTALLED_APPS Django settings.py:
+Add `fieldsets_with_inlines` to your INSTALLED_APPS Django settings.py:
 
 ```python
 INSTALLED_APPS = [
@@ -57,6 +57,8 @@ class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin)
 fieldsets! Every inline that you want rendered should be added to your
 fieldsets_with_inlines property.**
 
+**Inlines property still has to be defined!**
+
 
 ## Before and After
 
@@ -64,7 +66,7 @@ fieldsets_with_inlines property.**
 
 ```python
 class TestAdmin(admin.ModelAdmin):
-    fieldsets_with_inlines = [
+    fieldsets = [
         ('Objekt', {
             'fields': [
                 ('ID_RNO', 'id', 'kljuc', 'slug'),
@@ -84,7 +86,7 @@ class TestAdmin(admin.ModelAdmin):
             'fields': [
                 ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
         ('Nastanitvena kapaciteta', {
-            'fields': ['stevilo_stalnih_lezisc',]}),
+            'fields': ['stevilo_stalnih_lezisc']}),
         ('Dostop', {
             'fields': [
                 'users',
@@ -121,7 +123,7 @@ class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
                 ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
         KontaktInline,
         ('Nastanitvena kapaciteta', {
-            'fields': ['stevilo_stalnih_lezisc',]}),
+            'fields': ['stevilo_stalnih_lezisc']}),
         ('Dostop', {
             'fields': [
                 'users',
