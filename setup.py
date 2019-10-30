@@ -5,14 +5,14 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='django_fieldsets_with_inlines',
-    version='0.2',
+    version='0.5',
     author='Robert Kovac',
     author_email='robert.kovac@gmail.com',
     description='Mixin inlines and fieldsets in Django admin.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/robertkovac/django-fieldsets-with-inlines",
-    packages=['fieldsets_with_inlines'],  # setuptools.find_packages(),
+    packages=['fieldsets_with_inlines'],
     include_package_data=True,
     license='MIT',
     classifiers=[

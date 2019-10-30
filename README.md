@@ -37,53 +37,16 @@ INSTALLED_APPS = [
 
 ## Usage
 
-1. Include `FieldsetsInlineMixin` in your admin.py:
+In your `admin.py` import `FieldsetsInlineMixin', rename `fieldsets`
+property to `fieldsets_with_inlines` and list inlines right between your
+fieldsets:
+
 
 ```python
-from fieldsets_with_inlines import FieldsetsInlineMixin,
-```
+from fieldsets_with_inlines import FieldsetsInlineMixin
 
-1. Add changes to your existing ModelAdmin classes in your admin.py:
+...
 
-* add `FieldsetsInlineMixin` to your admin.ModelAdmin declarations:
-```
-class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin)
-```
-
-* rename your `fieldsets` property to `fieldsets_with_inlines`
-
-* in `fieldsets_with_inlines` property insert inlines beetween fieldsets
-where you want them to be rendered
-
-* remove `inlines` property
-
-
-## Before and After
-
-### Code before changes
-
-```python
-class TestAdmin(admin.ModelAdmin):
-    fieldsets = [
-        ('Objekt', {
-            'fields': [
-                ('ID_RNO', 'id', 'kljuc', 'slug'),
-                'naziv',
-                'kategorija']}),
-        ('Kontaktni podatki', {
-            'fields': [
-                ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
-        ('Dostop', {
-            'fields': [
-                'users',
-                ('cas_vpisa', 'zadnja_sprememba', 'cas_zadnje_posodobitve')]}),
-    ]
-    inlines = [KontaktInline, LastnistvoInline, OdjavaInline]
-```
-
-### Code after changes
-
-```python
 class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     fieldsets_with_inlines = [
         ('Objekt', {
@@ -103,3 +66,4 @@ class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
         OdjavaInline
     ]
 ```
+
