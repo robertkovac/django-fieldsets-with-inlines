@@ -1,5 +1,5 @@
 # Fieldsets with inlines
-### Mixin inlines and fieldsets in Django admin.
+### Mix inlines and fieldsets in any order in Django admin.
 
 ## What is it?
 
@@ -17,7 +17,7 @@ you want with minimal changes required to your existing code.
 ## Requirements
 
 - Python: 3.4+
-- Django: >=2.0
+- Django: 2.0+
 
 ## Installation
 
@@ -45,19 +45,17 @@ from fieldsets_with_inlines import FieldsetsInlineMixin,
 
 1. Add changes to your existing ModelAdmin classes in your admin.py:
 
+* add `FieldsetsInlineMixin` to your admin.ModelAdmin declarations:
 ```
 class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin)
 ```
 
 * rename your `fieldsets` property to `fieldsets_with_inlines`
 
-* insert inlines beetween fieldsets where you want them to be rendered
+* in `fieldsets_with_inlines` property insert inlines beetween fieldsets
+where you want them to be rendered
 
-**With fieldsets-with-inlines inlines are not automaticaly rendered after your
-fieldsets! Every inline that you want rendered should be added to your
-fieldsets_with_inlines property.**
-
-**Inlines property still has to be defined!**
+* remove `inlines` property
 
 
 ## Before and After
@@ -72,27 +70,13 @@ class TestAdmin(admin.ModelAdmin):
                 ('ID_RNO', 'id', 'kljuc', 'slug'),
                 'naziv',
                 'kategorija']}),
-        ('Naslov', {
-            'fields': [
-                ('obcina', 'obmocje'),
-                ('naseljeulica', 'hisna_stevilka', 'hisna_stevilka_pripona'),
-                ('ulica', 'kraj', 'posta')]}),
-        ('Ponudnik', {
-            'fields': [
-                'ponudnik',
-                ('ID_cadis', 'remote_id'),
-                'polovicna_taksa']}),
         ('Kontaktni podatki', {
             'fields': [
                 ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
-        ('Nastanitvena kapaciteta', {
-            'fields': ['stevilo_stalnih_lezisc']}),
         ('Dostop', {
             'fields': [
                 'users',
                 ('cas_vpisa', 'zadnja_sprememba', 'cas_zadnje_posodobitve')]}),
-        ('Opombe', {
-            'fields': ['opombe']}),
     ]
     inlines = [KontaktInline, LastnistvoInline, OdjavaInline]
 ```
@@ -107,30 +91,15 @@ class TestAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
                 ('ID_RNO', 'id', 'kljuc', 'slug'),
                 'naziv',
                 'kategorija']}),
-        ('Naslov', {
-            'fields': [
-                ('obcina', 'obmocje'),
-                ('naseljeulica', 'hisna_stevilka', 'hisna_stevilka_pripona'),
-                ('ulica', 'kraj', 'posta')]}),
-        ('Ponudnik', {
-            'fields': [
-                'ponudnik',
-                ('ID_cadis', 'remote_id'),
-                'polovicna_taksa']}),
         LastnistvoInline,
         ('Kontaktni podatki', {
             'fields': [
                 ('kontaktna_oseba', 'email', 'poslji_obvestila')]}),
         KontaktInline,
-        ('Nastanitvena kapaciteta', {
-            'fields': ['stevilo_stalnih_lezisc']}),
         ('Dostop', {
             'fields': [
                 'users',
                 ('cas_vpisa', 'zadnja_sprememba', 'cas_zadnje_posodobitve')]}),
-        ('Opombe', {
-            'fields': ['opombe']}),
         OdjavaInline
     ]
-    inlines = [KontaktInline, LastnistvoInline, OdjavaInline]
 ```
