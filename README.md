@@ -37,9 +37,9 @@ INSTALLED_APPS = [
 
 ## Usage
 
-In your `admin.py` import `FieldsetsInlineMixin', rename `fieldsets`
+In your `admin.py` import `FieldsetsInlineMixin`, rename `fieldsets`
 property to `fieldsets_with_inlines` and list inlines right between your
-fieldsets:
+fieldsets. You could also remove `inlines` property:
 
 
 ```python
