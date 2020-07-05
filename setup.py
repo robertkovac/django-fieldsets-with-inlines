@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='django_fieldsets_with_inlines',
-    version='0.5',
+    version='0.6',
     author='Robert Kovac',
     author_email='robert.kovac@gmail.com',
     description='Mixin inlines and fieldsets in Django admin.',
@@ -20,7 +20,7 @@ setuptools.setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Framework :: Django',
-        'Framework :: Django :: 2.0',
+        'Framework :: Django :: 3.0',
         'Intended Audience :: Developers',
     ],
     python_requires='>=3.4'

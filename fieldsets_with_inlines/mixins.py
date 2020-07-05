@@ -22,6 +22,10 @@ class FieldsetsInlineMixin(object):
         return super().get_fieldsets(request, obj)
 
     def get_inline_instances(self, request, obj=None):
+        """
+        Get inline instances from fieldsets_with_inlines if defined.
+        This way inlines property is not needed anymore.
+        """
         if self.fieldsets_with_inlines:
             inlines = [
                 inline for inline in self.fieldsets_with_inlines
@@ -30,11 +34,11 @@ class FieldsetsInlineMixin(object):
             for inline_class in inlines:
                 inline = inline_class(self.model, self.admin_site)
                 if request:
-                    if not (inline.has_add_permission(request) or
+                    if not (inline.has_add_permission(request, obj) or
                             inline.has_change_permission(request, obj) or
                             inline.has_delete_permission(request, obj)):
                         continue
-                    if not inline.has_add_permission(request):
+                    if not inline.has_add_permission(request, obj):
                         inline.max_num = 0
                 inline_instances.append(inline)
 
